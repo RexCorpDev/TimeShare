@@ -3,17 +3,13 @@ var mongoose = require('mongoose');
 var pAddressSchema = {
   region: String, country: String, street: String, city: String, state: String, zip: Number
 };
-var lAddressSchema = {
-  region: String, country: String, street: String, city: String, state: String, zip: Number
-};
-
 
 var propertySchema = new mongoose.Schema({
-  address         :   Object,
+  address         :   pAddressSchema,
   // address      :  { type: { region: String, country: String, street: String, city: String, state: String, zip: Number}},
-  price           :   { type: Number},
+  listPrice       :   { type: Number},
   customerRating  :   { type: Number},
-  offers          :   { type: Number},
+  marketPrice     :   { type: Number},
   status          :   { type: String, enum: ['active', 'inactive', 'rejected', 'seeking']},
 });
 

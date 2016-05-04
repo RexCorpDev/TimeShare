@@ -4,9 +4,6 @@ var express = require('express');
 var router = express.Router();
 var Property = require('../models/property');
 
-
-
-
 router.get('/', (req, res) => {
   Property.find({}, (err, properties)=> {
     if(err){

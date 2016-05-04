@@ -13,13 +13,13 @@ app.service('Property', function($http, $q){
     return $http.get('api/properties', id);
   };
 
-  this.getPropertys = () => {
+  this.getProperties = () => {
     return $http.get('/api/properties')
   };
 
-  this.create = newProperty => {
-    console.log("Service new property \n", newProperty);
-    return $http.post('/api/properties', newProperty);
+  this.create = newProperties => {
+    console.log("Service new property \n", newProperties);
+    return $http.post('/api/properties', newProperties);
   };
 
   this.delete = id => {

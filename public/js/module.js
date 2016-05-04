@@ -1,6 +1,6 @@
 'use strict';
 
-var app = angular.module('timeShareApp', [ 'ui.bootstrap', 'ui.bootstrap', 'oitozero.ngSweetAlert' ]);
+var app = angular.module('timeShareApp', [ 'ui.bootstrap', 'ui.router', 'oitozero.ngSweetAlert' ]);
 
 app.config(function($stateProvider, $urlRouterProvider){
 
@@ -26,6 +26,11 @@ console.log("stateProvider");
     url           : '/all' ,
     templateUrl   : 'html/all.html' ,
     controller    : 'allCtrl'
+  })
+  .state('addProperty', {
+    url           : '/addProperty' ,
+    templateUrl   : 'html/addProperty.html' ,
+    controller    : 'addCtrl'
   })
   .state('edit', {
     url           : '/edit' ,
