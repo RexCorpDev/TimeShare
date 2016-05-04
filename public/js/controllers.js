@@ -150,75 +150,55 @@ app.controller('addCtrl', function($scope, Property, Client, $state){
 
 
 
-app.controller('editCtrl', function ($scope, Client, Property, $state) {
-  // //console.log("editController");
-  // $scope.isCollapsed = true;
-  //
-  // Client.getClients()
-  //   .then(dbClients => {
-  //   //console.log("getClients\n",dbClients);
-  //   $scope.cards = dbClients.data;
-  // });
-  //
-  // $scope.sortBy = order => {
-  //   if($scope.sortOrder === order){
-  //     $scope.sortOrder = -order;
-  //   } else {
-  //     $scope.sortOrder = order;
-  //   };
-  // };
-  //
-  // $scope.editCard = card => {
-  //   var editedCard = {};
-  //   console.log("old Card\n", card);
-  //   //console.log("edit card\n", card);
-  //   $scope.isCollapsed = false;
-  //   $scope.editCategory = card.category;
-  //   $scope.editQuestion = card.question;
-  //   $scope.editAnswer = card.answer;
-  //   $scope.editDifficulty = card.difficulty;
-  //
-  //
-  //   $scope.submitEdit = () => {
-  //     console.log(card._id);
-  //     editedCard = {
-  //       _id        :   card._id,
-  //       category  :   $scope.editCategory,
-  //       question  :   $scope.editQuestion,
-  //       answer    :   $scope.editAnswer,
-  //       difficulty:   $scope.editDifficulty
-  //     };
-  //     console.log("new Card", editedCard);
-  //
-  //     Card.edit(editedCard);
-  //     Card.getCards()
-  //     .then(newCards => {
-  //       console.log("here are the edited cards\n",newCards);
-  //       $scope.cards = newCards.data;
-  //     });
-  //
-  //
-  //     $scope.editCategory = "";
-  //     $scope.editQuestion = "";
-  //     $scope.editAnswer = "";
-  //     $scope.editDifficulty = "";
-  //   }
-  // }
-  //
-  // $scope.cancelChanges = () => {
-  //   $scope.editCategory = "";
-  //   $scope.editQuestion = "";
-  //   $scope.editAnswer = "";
-  //   $scope.editDifficulty = "";
-  // }
-  //
-  // $scope.deleteCard = id => {
-  //   Card.delete(id);
-  //   Card.getCards()
-  //   .then(newCards => {
-  //     $scope.cards = newCards.data;
-  //   });
-  // };
+app.controller('editPropertyCtrl', function ($scope, Property, $state) {
+  console.log("editPropertyController");
+
+  var propertyToEdit = property;
+
+  $scope.id           = propertyToEdit.id;
+  $scope.country      = propertyToEdit.country;
+  $scope.city         = propertyToEdit.city;
+  $scope.state        = propertyToEdit.state;
+  $scope.zip          = propertyToEdit.listPrice;
+  $scope.listPrice    = propertyToEdit.marketPrice;
+
+
+  $scope.submitEdit = () => {
+    submitProperty = {
+      _id             =$scope.id,
+      newCountry      =$scope.country,
+      newCity         =$scope.city,
+      newState        =$scope.state,       
+      newZip          =$scope.zip,
+      newListPrice    =$scope.listPrice
+    }
+    console.log("submit Property", submitProperty);
+
+    Property.edit(submitProperty);
+    Property.getProperties()
+    .then(newProperties => {
+      console.log("here are the edited properties\n",newProperties);
+      $scope.editStatus = "Change Complete!";
+    });
+
+    $scope.id           = "";
+    $scope.country      = "";
+    $scope.city         = "";
+    $scope.state        = "";
+    $scope.zip          = "";
+    $scope.listPrice    = "";
+  }
+}
+
+$scope.cancelChanges = () => {
+  $scope.id           = "";
+  $scope.country      = "";
+  $scope.city         = "";
+  $scope.state        = "";
+  $scope.zip          = "";
+  $scope.listPrice    = "";
+  $scope.editStatus = "Change Canceled!";
+}
 
 });
 

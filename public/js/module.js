@@ -32,10 +32,10 @@ console.log("stateProvider");
     templateUrl   : 'html/addProperty.html' ,
     controller    : 'addCtrl'
   })
-  .state('edit', {
-    url           : '/edit' ,
-    templateUrl   : 'html/edit.html' ,
-    controller    : 'editCtrl'
+  .state('editedProperty', {
+    url           : '/editProperty' ,
+    templateUrl   : 'html/editProperty.html' ,
+    controller    : 'editPropertyCtrl'
   })
   // .state('< name >', {
   //   url           : '< / >' ,
