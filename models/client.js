@@ -20,4 +20,6 @@ var clientSchema = new mongoose.Schema({
   locationA   :   lAddressSchema
 });
 
+var Client = mongoose.model("Client", clientSchema);
+
 module.exports = Client;
