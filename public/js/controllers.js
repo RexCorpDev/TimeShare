@@ -59,9 +59,9 @@ app.controller('addCtrl', function($scope, Property, Client, $state){
         zip       : $scope.newZip
       },
       listPrice       :   $scope.listPrice,
-      // customerRating  :   $scope.newRating.selected,
-      // marketPrice     :   $scope.newOffer,
-      // status          :   $scope.newStatus.selected,
+      customerRating  :   $scope.newRating.selected,
+      marketPrice     :   $scope.marketPrice,
+      status          :   $scope.newStatus.selected,
     };
 
     console.log("controllerNewProperty",newProperty);

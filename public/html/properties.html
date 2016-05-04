@@ -32,10 +32,10 @@
           <p ng-click='sortBy("address")'><b> Address </b></p>
         </td>
         <td class="col-xs-1">
-          <p ng-click='sortBy("price")'><b> price </b> </p>
+          <p ng-click='sortBy("price")'><b> Price </b> </p>
         </td>
         <td class="col-xs-1">
-          <p ng-click='sortBy("rating")'> <b> rating </b></p>
+          <p ng-click='sortBy("rating")'> <b> Rating </b></p>
         </td>
         <td class="text-center col-xs-2">
           <p ng-click='sortBy("offers")'><b>  Offers </b></p>
@@ -67,7 +67,7 @@
           <p>  {{ property.customerRating}}</p>
         </td>
         <td class="col-xs-2">
-          <p>  {{ property.marketPrice}}</p>
+          <p>  {{ property.marketPrice | currency}}</p>
         </td>
         <td class="col-xs-1">
           <p>  {{ property.status}}</p>
