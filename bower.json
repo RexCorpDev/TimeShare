@@ -1,12 +1,12 @@
 {
-  "name": "frontend",
+  "name": "TimeShareApp",
   "description": "",
   "main": "app.js",
   "authors": [
     "RexCorpDev <rexcorpfx@gmail.com>"
   ],
   "license": "ISC",
-  "homepage": "https://github.com/RexCorpDev/hello-world",
+  "homepage": "https://github.com/RexCorpDev/TimeShare.git",
   "ignore": [
     "**/.*",
     "node_modules",
@@ -22,6 +22,9 @@
     "bootstrap": "^3.3.6",
     "jquery": "^2.2.3",
     "angular-bootstrap": "^1.3.2",
-    "font-awesome": "fontawesome#^4.6.1"
+    "font-awesome": "^4.6.1"
+  },
+  "resolutions": {
+    "angular": "1.5.5"
   }
 }
