@@ -1,5 +1,4 @@
 'use strict';
-
 var app = angular.module('timeShareApp');
 
 app.service('Property', function($http, $q){

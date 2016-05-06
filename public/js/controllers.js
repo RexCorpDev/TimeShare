@@ -99,11 +99,9 @@ app.controller('addCtrl', function($scope, Property, Client, $state){
     console.log("controllerNewProperty",newProperty);
     Property.create(newProperty);
 
-    $scope.difficulty.selected = "";
-    $scope.category.selected = "";
-    $scope.question = "";
-    $scope.answer = "";
   };
+
+
   $scope.newRegion = {
     address: [
       'North America',
