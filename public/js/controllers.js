@@ -2,9 +2,9 @@
 
 var app = angular.module('timeShareApp');
 
-app.controller('homeCtrl', function(){
+app.controller('homeCtrl', function($scope, $state){
   console.log("homeCtrl");
-})
+});
 
 app.controller('propertiesCtrl', function($scope, $state, Property){
   console.log('propertiesCtrl');
@@ -31,18 +31,50 @@ app.controller('propertiesCtrl', function($scope, $state, Property){
     };
   };
   //$scope.<ARRAY> = [];
-})
+});
 
 app.controller('clientsCtrl', function($scope, $state, Client){
   console.log('clientsCtrl');
 
+
+  Client.getClients()
+  .then(dbClients => {
+    console.log(dbClients);
+    $scope.clients = dbClients.data;
+  });
+
+  $scope.deleteClient = id => {
+    Client.delete(id);
+    Client.getClients()
+    .then(newClients => {
+      $scope.clients = newClients.data;
+    });
+  };
+
+  $scope.sortBy = order => {
+    if($scope.sortOrder === order){
+      $scope.sortOrder = -order;
+    } else {
+      $scope.sortOrder = order;
+    };
+  };
   //$scope.<ARRAY> = [];
 })
 
-app.controller('allCtrl', function($scope, $state, Client, Property){
-  console.log('allCtrl');
+app.controller('databaseCtrl', function($scope, $state, Client, Property){
 
-  //$scope.<ARRAY> = [];
+  Client.getClients()
+  .then(dbClients => {
+    $scope.clients = dbClients.data;
+  });
+
+  Property.getProperties()
+  .then(dbProperties => {
+    $scope.properties = dbProperties.data;
+
+  });
+
+
 });
 
 //  CRUD controllers
@@ -128,84 +160,83 @@ app.controller('addCtrl', function($scope, Property, Client, $state){
     $scope.question = "";
     $scope.answer = "";
   };
-  $scope.category = {
-    options: [
-      'Movie',
-      'Music',
-      'Number',
-      'Random'
-    ],
-    selected: 'Movie'
-  };
-  $scope.difficulty = {
-    options: [
-      'Easy',
-      'Medium',
-      'Hard',
-      'Very Hard'
-    ],
-    selected: 'Easy'
-  };
 });
 
-
-
-app.controller('editPropertyCtrl', function ($scope, Property, $state) {
-  console.log("editPropertyController");
+app.controller('editPropertiesCtrl', function ($scope, Property, $state, property) {
+  console.log("editPropertiesCtrl");
 
   var propertyToEdit = property;
+  console.log(property.data);
+  var data = propertyToEdit.data;
 
-  $scope.id           = propertyToEdit.id;
-  $scope.country      = propertyToEdit.country;
-  $scope.city         = propertyToEdit.city;
-  $scope.state        = propertyToEdit.state;
-  $scope.zip          = propertyToEdit.listPrice;
-  $scope.listPrice    = propertyToEdit.marketPrice;
+  $scope.country      = data.address.country;
+  $scope.city         = data.address.city;
+  $scope.state        = data.address.state;
+  $scope.street       = data.address.street;
+  $scope.zip          = data.address.zip;
+  $scope.listPrice    = data.listPrice;
+  $scope.marketPrice  = data.marketPrice;
 
+  $scope.editRegion = {
+    address: [
+      'North America',
+      'Central America',
+      'South America',
+      'Europe',
+      'Scandanavia',
+      'Middle East',
+      'Asia'
+    ],
+    selected: `${data.address.region}`
+  };
+
+  $scope.editRating = {
+    rate: [
+      '$',
+      '$$',
+      '$$$',
+      '$$$$',
+      '$$$$$',
+      '$$$$$$$'
+
+    ],
+    selected: `${data.customerRating}`
+  };
+
+  $scope.editStatus = {
+    status: [
+      'Listed',
+      'Purchased',
+      'Low Interest',
+      'High Interest',
+      'Special Interest'
+    ],
+    selected: `${data.status}`
+  };
 
   $scope.submitEdit = () => {
-    submitProperty = {
-      _id             =$scope.id,
-      newCountry      =$scope.country,
-      newCity         =$scope.city,
-      newState        =$scope.state,       
-      newZip          =$scope.zip,
-      newListPrice    =$scope.listPrice
+    var newAddress = {
+      country      : $scope.country,
+      city         : $scope.city,
+      state        : $scope.state,
+      street       : $scope.street,
+      zip       : $scope.zip,
+    }
+    var submitProperty = {
+      _id             : data._id,
+      address         : newAddress,
+      listPrice       : $scope.listPrice,
+      customerRating  : $scope.editRating.selected,
+      marketPrice     : $scope.marketPrice,
+      status          : $scope.editStatus.selected
     }
     console.log("submit Property", submitProperty);
 
     Property.edit(submitProperty);
     Property.getProperties()
     .then(newProperties => {
-      console.log("here are the edited properties\n",newProperties);
-      $scope.editStatus = "Change Complete!";
+      console.log("here are the edited properties\n",newProperties.data);
+      $scope.buttonName = "Change Complete!";
     });
-
-    $scope.id           = "";
-    $scope.country      = "";
-    $scope.city         = "";
-    $scope.state        = "";
-    $scope.zip          = "";
-    $scope.listPrice    = "";
-  }
-}
-
-$scope.cancelChanges = () => {
-  $scope.id           = "";
-  $scope.country      = "";
-  $scope.city         = "";
-  $scope.state        = "";
-  $scope.zip          = "";
-  $scope.listPrice    = "";
-  $scope.editStatus = "Change Canceled!";
-}
-
+  };
 });
-
-
-// app.controller('betaCtrl', function($scope, $state, <SERVICE NAME>){
-//   console.log('betaCtrl');
-//
-//   //$scope.<ARRAY> = [];
-//
-// })

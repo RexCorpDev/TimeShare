@@ -8,9 +8,9 @@ app.service('Property', function($http, $q){
     return $http.get('/api/properties', category);
   };
 
-  this.getPropertyById = id => {
-    console.log("PropertyById\n", id);
-    return $http.get('api/properties', id);
+  this.getPropertyById = property => {
+    console.log("PropertyById\n", property.id);
+    return $http.get(`api/properties/${property.id}`, property);
   };
 
   this.getProperties = () => {
@@ -29,6 +29,6 @@ app.service('Property', function($http, $q){
 
   this.edit = editedProperty => {
     console.log("Edit this:\n",editedProperty);
-    return $http.put(`/api/properties/${editedProperty._id}`, editedCard);
+    return $http.put(`/api/properties/${editedProperty._id}`, editedProperty);
   }
 });

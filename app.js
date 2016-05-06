@@ -10,7 +10,7 @@ var path = require('path');
 var router = express.Router();
 var app = express();
 
-const MONGOURL = process.env.MONGODB_URL || 'mongodb://localhost/02mar2016_homework_TimeShare';
+const MONGOURL = process.env.MONGODB_URL || 'mongodb://localhost/TimeShare';
 
 app.use(morgan('dev'));
 app.use(bodyParser.json());

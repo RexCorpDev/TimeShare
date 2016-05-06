@@ -4,8 +4,6 @@ var app = angular.module('timeShareApp', [ 'ui.bootstrap', 'ui.router', 'oitozer
 
 app.config(function($stateProvider, $urlRouterProvider){
 
-console.log("stateProvider");
-
   $stateProvider
   .state('home', {
     url           : '/' ,
@@ -17,26 +15,33 @@ console.log("stateProvider");
     templateUrl   : 'html/properties.html' ,
     controller    : 'propertiesCtrl'
   })
-  .state('clients', {
-    url           : '/clients' ,
-    templateUrl   : 'html/clients.html' ,
-    controller    : 'clientsCtrl'
-  })
-  .state('all', {
-    url           : '/all' ,
-    templateUrl   : 'html/all.html' ,
-    controller    : 'allCtrl'
-  })
   .state('addProperty', {
     url           : '/addProperty' ,
     templateUrl   : 'html/addProperty.html' ,
     controller    : 'addCtrl'
   })
-  .state('editedProperty', {
-    url           : '/editProperty' ,
-    templateUrl   : 'html/editProperty.html' ,
-    controller    : 'editPropertyCtrl'
+  .state('editProperties', {
+    url           : '/editProperties/:id' ,
+    templateUrl   : 'html/editProperties.html' ,
+    controller    : 'editPropertiesCtrl',
+    resolve       : {
+      property : function(Property, $stateParams){
+
+        return Property.getPropertyById($stateParams)
+      }
+    }
   })
+  .state('clients', {
+    url           : '/clients' ,
+    templateUrl   : 'html/clients.html' ,
+    controller    : 'clientsCtrl'
+  })
+  .state('database', {
+    url           : '/database' ,
+    templateUrl   : 'html/database.html' ,
+    controller    : 'databaseCtrl'
+  });
+
   // .state('< name >', {
   //   url           : '< / >' ,
   //   templateUrl   : '< / >' ,
@@ -48,4 +53,4 @@ console.log("stateProvider");
   ; // END OF .state(s)
 
   $urlRouterProvider.otherwise('/');
-})
+});

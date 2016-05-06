@@ -4,17 +4,20 @@ var app = angular.module('timeShareApp');
 
 app.service('Client', function($http, $q){
 
-  this.getClientsByCategory = category => {
-    return $http.get('/api/clients', category);
-  };
+  // this.getClients = category => {
+  //   return $http.get('/api/clients', category);
+  // };
 
-  this.getClientById = id => {
-    console.log("ClientById\n", id);
-    return $http.get('api/clients', id);
-  };
+
 
   this.getClients = () => {
+    console.log("get clients");
     return $http.get('/api/clients')
+  };
+
+  this.getClientById = client => {
+    console.log("ClientById\n", client.id);
+    return $http.get(`api/clients/${client.id}`, client);
   };
 
   this.create = newClient => {
