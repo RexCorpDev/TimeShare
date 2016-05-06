@@ -35,3 +35,5 @@ mongoose.connect(MONGOURL, err => {
 app.listen(PORT, err => {
   console.log(err || `Server listening on PORT ${PORT}`);
 });
+
+module.exports = router;

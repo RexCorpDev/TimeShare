@@ -4,6 +4,8 @@ var mongoose = require('mongoose');
 var ObjectId = mongoose.Schema.Types.ObjectId;
 var Property = require('./property');
 
+console.log('Property @ client => ', JSON.stringify(Property, 2, null));
+
 var clientSchema = new mongoose.Schema({
   name        :   { first: String, last: String},
   phone       :   { mobile: String, home: String, work: String},
@@ -13,7 +15,7 @@ var clientSchema = new mongoose.Schema({
   tenure      :   { type: Number},
   personalAddress   :   {region: String, country: String, street: String, city: String, state: String, zip: Number},
   locationAddress   :   {region: String, country: String, street: String, city: String, state: String, zip: Number},
-  property         : [{ type: mongoose.Schema.Types.ObjectId, ref: 'Client'}]
+  property         : [{ type: mongoose.Schema.Types.ObjectId, ref: 'Property'}]
 });
 
 clientSchema.statics.moveIn = function(clientId, propertyId, cb) {
@@ -26,7 +28,7 @@ clientSchema.statics.moveIn = function(clientId, propertyId, cb) {
       if(errClient || errProperty) return cb( errClient || errProperty );
 
       var clientHasProperty = client.property.indexOf(property._id) != -1;
-      var PropertyHasClient = property.property.indexOf(client._id) != -1;
+      var PropertyHasClient = property.client.indexOf(client._id) != -1;
 
       if(clientHasProperty || PropertyHasClient) {
         return cb({ error: "Client Already Owns this TimeShare!" });
@@ -50,5 +52,6 @@ clientSchema.statics.moveIn = function(clientId, propertyId, cb) {
 
 
 var Client = mongoose.model("Client", clientSchema);
+console.log('Client-var => ', JSON.stringify(Client, 2, null));
 
 module.exports = Client;

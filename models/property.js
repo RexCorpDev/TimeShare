@@ -1,16 +1,20 @@
+'use strict';
+
 var mongoose = require('mongoose');
 var ObjectId = mongoose.Schema.Types.ObjectId;
 var Client = require('./client');
 
+console.log('Client @ property => ', JSON.stringify(Client, 2, null));
+
 var propertySchema = new mongoose.Schema({
   address         :   {
-      region: String,
-      country: String,
-      street: String,
-      city: String,
-      state: String,
-      zip: Number
-    },
+    region: String,
+    country: String,
+    street: String,
+    city: String,
+    state: String,
+    zip: Number
+  },
   listPrice       :   { type: Number},
   customerRating  :   { type: String, enum: ['$','$$','$$$','$$$$','$$$$$','$$$$$$$']},
   marketPrice     :   { type: Number},
@@ -27,6 +31,7 @@ propertySchema.statics.assign = function(propertyId, clientId, cb) {
     return cb({error: "Duplicate ID's"})
   }
   Property.findById(propertyId, (errProperty, property) => {
+    console.log(property);
     Client.findById(clientId, (errClient, client) => {
       //console.log("client FOUND=\n", client);
       if(errClient || errProperty) return cb( errClient || errProperty );
@@ -54,14 +59,19 @@ propertySchema.statics.assign = function(propertyId, clientId, cb) {
   });
 };
 
+var Property = mongoose.model('Property', propertySchema);
+console.log('Property-var => ', JSON.stringify(Property, 2, null));
+
+module.exports = Property;
+
+
+
+
+
+
 // propertySchema.statics.remove = function(propertyId, clientId, cb) {
 //   if(propertyId === clientId){
 //     return cb({error: "Dubplicate ID's"})
 //   }
 //
 // }
-
-
-var Property = mongoose.model('Property', propertySchema);
-
-module.exports = Property;

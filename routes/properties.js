@@ -3,6 +3,8 @@
 var express = require('express');
 var router = express.Router();
 var Property = require('../models/property');
+console.log('@ Properties => ', JSON.stringify(Property, 2, null));
+
 
 router.route('/')
 .get((req, res) => {
@@ -35,8 +37,6 @@ router.route('/:id')
 });
 
 router.put('/:property/populate/:client', (req, res) => {
-  console.log('propertyId\n',req.params.property);
-  console.log('clientID\n',req.params.client);
   Property.assign(req.params.property, req.params.client, res.handle);
 });
 

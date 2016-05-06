@@ -3,6 +3,8 @@
 var express = require('express');
 var router = express.Router();
 var Client = require('../models/client');
+console.log('@ Clients => ', JSON.stringify(Client, 2, null));
+
 
 router.route('/')
 .get((req, res) => {
@@ -27,12 +29,12 @@ router.route('/:id')
   Client
   .findByIdAndRemove(req.params.id)
   .exec(res.handle)
-});
+})
 .put((req, res) => {
   Client
-  .findByIdAndUpdate(req.params.id,  { $set: req.body }, { new: true})
+  .findByIdAndUpdate(req.params.id, { $set: req.body }, { new: true})
   .exec(res.handle)
-})
+});
 
 router.put('/:client/buy/:property', (req, res) => {
   Client.moveIn(req.params.client, req.params.property, res.handle);
