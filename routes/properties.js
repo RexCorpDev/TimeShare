@@ -14,8 +14,7 @@ router.route('/')
 })
 .post((req, res) => {
   Property
-  .create(req.body)
-  .exec(res.handle)
+  .create(req.body, res.handle)
 });
 
 router.route('/:id')

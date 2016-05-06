@@ -163,9 +163,8 @@ app.controller('addCtrl', function($scope, Property, Client, $state){
 app.controller('editPropertiesCtrl', function ($scope, Property, $state, property) {
   console.log("editPropertiesCtrl");
 
-  var propertyToEdit = property;
-  console.log(property.data);
-  var data = propertyToEdit.data;
+  var data = property.data;
+  console.log('Propert.data=>\n',property.data);
 
   $scope.country      = data.address.country;
   $scope.city         = data.address.city;
